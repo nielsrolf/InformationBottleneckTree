@@ -1,0 +1,20 @@
+\section{Learning Problems} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Learning Problems: Classification and Regression}
+
+\begin{definition}
+    Let $\mathcal{X}, \mathcal{Y}$ be random variables with an unknown joint probability distribution $P_{\mathcal{X}, \mathcal{Y}}$, and $X \in \mathcal{X}^N, Y \in \mathcal{Y}^N$ be observed samples. Finding a function $f$ such that $E_{\mathcal{X}, \mathcal{Y}}[J(f(\mathcal{X}), \mathcal{Y}), \mathcal{Y})]$ is small is called a classification or regression problem. \footnote{
+        This definition can be seen as a special case of the definition by Mitchell, 1997: "A comouter program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance in task $T$. measured by $P$, improves with experience $E$."
+    }
+\end{definition}
+
+\begin{itemize}
+    \item Classification: $|\mathcal{Y}| \in \mathcal{N}$ - the target variable represents a category
+    \item Regression: $|\mathcal{Y}| \in \mathcal{R}^{D_y}$ - the target can be any vector
+    \item Example: Predict if an image shows a cat, predict the age of a person shown in an image.
+\end{itemize}
+
+
+\end{frame}
