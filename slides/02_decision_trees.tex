@@ -36,7 +36,7 @@
    \item Many exact solutions are NP hard: e.g. finding a minimal tree that fits the data
    \item Instead of exact solutions: greedy algorithms (bottom up vs top down)
    \item Different loss functions have been proposed: \newline
-   InformationGain, Gini Index,  Likelihood-Ratio Chi–Squared Statistics, DKM Criterion, Gain Ratio, ...
+   InformationGain, Gini Index,  Likelihood-Ratio Chi–Squared Statistics, DKM Criterion, Gain Ratio, ...- see \cite{rokach_decision_2005}
    \item This project evaluates the Information Bottleneck as loss function 
    \end{itemize}
 \end{frame}
@@ -44,5 +44,45 @@
 
 \begin{frame}
    \frametitle{Decision Trees - Top Down}  
-   TODO Algorithm pseudocode
+\begin{lstlisting}[language=Python, caption=Python example]
+hello
+\end{lstlisting}
 \end{frame}
+
+
+% \begin{frame}
+%    \frametitle{Decision Trees - Top Down}  
+%    \begin{verbatim}
+% class DecisionTree():
+%   def __init__(self, J, stopping_criterion):
+%     self.J = J
+%     self.stopping_criterion = stopping_criterion
+%     self.p = None
+
+%   def fit(self, X, Y):
+%     if self.stopping_criterion(X, Y):
+%       self.p = best_constant_estimator(Y)
+%       return
+%     best_loss = infinity
+%     for d in range(X.shape[1]):
+%       loss_d, threshhold_d, X_left_d, Y_left_d, X_right_d, Y_right_d = best_split(X[:,d], Y)
+%       if loss_d < best_loss:
+%         best_loss = loss_d
+%         self.threshhold = threshhold
+%         self.d = d
+%         X_left = X_left_d
+%         Y_left = Y_left_d
+%       self.left = DecisionTree(self.J, self.stopping_criterion).fit(X_left, Y_left)
+%       self.right = DecisionTree(self.J, self.stopping_criterion).fit(X_right, Y_right)
+%       return self
+
+%    def predict(self, x):
+%      if self.p is not None: \# this tree is a leaf
+%        return self.p
+%      if x[self.d] < self.theshhold:
+%        return self.left.predict(x)
+%      else:
+%        return self.right.predict(y)
+
+% \end{verbatim}
+% \end{frame}

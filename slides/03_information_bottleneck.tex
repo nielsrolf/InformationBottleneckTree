@@ -15,6 +15,7 @@
         P_{\hat{X}|\mathbb{X}} = argmin_{p(\hat{X}|\mathbb{X})} 
         I(\hat{X},\mathbb{X}) - \beta I(\hat{X}, \mathbb{Y})
     \end{equation}
+    This was introduced by \cite{tishby_information_2000}.
 
 
     
@@ -29,14 +30,16 @@
 
 \begin{frame}
     \frametitle{The Information Bottleneck Iterative Algorithm}
-    Similar to the Blahut-Arimoto Algorithm for finding an optimal $P_{\hat{X}|\mathbb{X}}$, there exists an iterative algorithm that converges to the optimal solution for the IB problem:
+    Similar to the Blahut-Arimoto Algorithm (\cite{blahut_computation_1972} \cite{arimoto_algorithm_1972}) for finding an optimal $P_{\hat{X}|\mathbb{X}}$, there exists an iterative algorithm that converges to the optimal solution for the IB problem:
 
     \begin{align*}
         p_t(\hat{x}|x) &= \frac{p_t(\hat{x})}{Z_t(x, \beta)} exp(- \beta d(x, \hat{x}) ) \\
         p_{t+1}(\hat{x}) &= \sum_{x} p_t(\hat{x}|x) P_{\mathbb{X}}(x) \\
-        p_{t+1}(y|\hat{x}) &= \frac{p_t(y, x')}{p_t(x')} = \frac{\sum_{x} P_{\mathbb{X},\mathbb{Y}}(x, y) p_t(\hat{x}|x)}{p_t(x')}
-    \end{align*}
+        p_{t+1}(y|\hat{x}) &= \frac{p_t(y, x')}{p_{t+1}(x')} = \frac{\sum_{x} P_{\mathbb{X},\mathbb{Y}}(x, y) p_t(\hat{x}|x)}{p_{t+1}(x')} 
+    \end{align*} 
 
-    Where $d(x, \hat{x}) = D_{KL}(P_{\mathbb{Y}|\mathbb{X}}|| P_{\mathbb{Y}|\hat{X}})$
+    Where $d(x, \hat{x}) = D_{KL}(P_{\mathbb{Y}|\mathbb{X}}|| P_{\mathbb{Y}|\hat{X}})$ \footnote{
+        In equation (31) of \cite{tishby_information_2000}, the update rule is stated as $p_{t+1}(y|\hat{x}) = \sum_y P_{\mathbb{Y}|\mathbb{X}}(y|x) p_t(x|\hat{x})$, which cannot be correct since it does not depend on $y$ of the lefthand side of the equation.
+    }
     
 \end{frame}

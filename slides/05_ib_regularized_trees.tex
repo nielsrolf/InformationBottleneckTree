@@ -3,9 +3,17 @@
 
 \begin{frame}
 \frametitle{Information Bottleneck in Decision Trees}
-- plug in LIB into decision tree inducer
-- time and space complexity of the algorithm not affected
-- IB now applicable to samples, when PXY unkown
-- Generalization bounds?
+    \begin{itemize}
+        \item plug in $J_{IB;\beta}$ into decision tree inducer
+        \item time and space complexity of the algorithm not affected
+        \item IB now applicable to samples, when $P_{\mathbb{X}, \mathbb{Y}}$ unkown
+        \item Generalization bounds?
+        \item some authors also train neural networks with the IB objective, but this is a much harder task: $I(\mathbb{X}, \hat{X})$ and $I(\hat{X}, \mathbb{Y})$ are hard to estimate
+        \begin{itemize}
+            \item Information Dropout \cite{achille_information_2017}: add multiplicative noise to intermediate activations
+            \item MINE \cite{belghazi_mine_2018}: general purpose estimator for mututal information using neural networks, which can then be used to train another network with the IB objective
+        \end{itemize}
+    \end{itemize}
+
 
 \end{frame}
