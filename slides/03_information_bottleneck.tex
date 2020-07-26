@@ -1,9 +1,42 @@
-\section{Information Bottleneck} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
-%------------------------------------------------
+\section[IB]{Information Bottleneck} 
+
+
 
 \begin{frame}
-\frametitle{Problem and Algorithm}
-Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
+    \frametitle{The Information Bottleneck}
+    Let $\mathbb{X}, \mathbb{Y}$ be random variables with a known joint probability distribution $P_{\mathbb{X}, \mathbb{Y}}$, $\mathcal{X}, \mathcal{Y}$ their domain and  $|\mathcal{X}| \in \mathbb{N}, |\mathcal{Y}| \in \mathbb{N}$. \newline
 
-Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat ullamcorper id.
+    Intuition: we want to encode a message $\mathbb{X}$ such that we keep as much information about $\mathbb{Y}$ as possible, while compressing $\mathbb{X}$ as much as possible. \newline
+
+    We achieve this by finding a soft partioning of $\mathbb{X}$ defined by a mapping $P_{\hat{X}|\mathbb{X}}$ such that $I(\hat{X},\mathbb{X})$ is minimized while $I(\hat{X},\mathbb{Y})$ is maximized. \newline
+
+    The solution is the minima of the functional:
+    \begin{equation}
+        P_{\hat{X}|\mathbb{X}} = argmin_{p(\hat{X}|\mathbb{X})} 
+        I(\hat{X},\mathbb{X}) - \beta I(\hat{X}, \mathbb{Y})
+    \end{equation}
+
+
+    
+% - Rate distortion theory gives us a limit on how much compression is possible:
+%     - rate distortion definition
+%     - Blahut-Arimoto algorithm can be used to find optimal mapping
+%     - is there any constraint on d in the original rate distortion theory? "Unlike the case of rate distortion theory, here the constraint on the meaningful information is nonlinear in the desired mapping p(˜x|x) and this is a much
+%     harder variational problem." - Why?
+% - now set d := I(x', x) => You get the IB problem and Blahut-Arimoto becomes The IB iterative algorithm
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Information Bottleneck Iterative Algorithm}
+    Similar to the Blahut-Arimoto Algorithm for finding an optimal $P_{\hat{X}|\mathbb{X}}$, there exists an iterative algorithm that converges to the optimal solution for the IB problem:
+
+    \begin{align*}
+        p_t(\hat{x}|x) &= \frac{p_t(\hat{x})}{Z_t(x, \beta)} exp(- \beta d(x, \hat{x}) ) \\
+        p_{t+1}(\hat{x}) &= \sum_{x} p_t(\hat{x}|x) P_{\mathbb{X}}(x) \\
+        p_{t+1}(y|\hat{x}) &= \frac{p_t(y, x')}{p_t(x')} = \frac{\sum_{x} P_{\mathbb{X},\mathbb{Y}}(x, y) p_t(\hat{x}|x)}{p_t(x')}
+    \end{align*}
+
+    Where $d(x, \hat{x}) = D_{KL}(P_{\mathbb{Y}|\mathbb{X}}|| P_{\mathbb{Y}|\hat{X}})$
+    
 \end{frame}

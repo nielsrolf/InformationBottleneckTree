@@ -1,8 +1,48 @@
 \section{Decision Trees}
 \begin{frame}
-\frametitle{Decision Trees}
-Decision trees provide an algorithm to solve classification and regression problems.
+   \frametitle{Decision Trees}
+   Decision tree inducers provide an algorithm to solve classification and regression problems.
+   \begin{itemize}
+      \item  A binary decision tree $T$ splits the data: $s_T(x) = x_{i_T} \leq t_{T}$ unless $T$ is a leaf
+      \item If $T$ is a leaf, it predicts $T(x) = c_T$ for some constant $c_T$
+      \item If $T$ is not a leaf, it creates two subtrees $T_{left}$ and $T_{right}$, and predicts:
+      \[   
+      T(x) = 
+            \begin{cases}
 
-
+               T_{left}(x) &\quad\text{if}\:  s_T(x) = \text{TRUE} \\
+               T_{right}(x) &\quad\text{if}\:  s_T(x) = \text{FALSE} \\
+            \end{cases}
+      \]
+      \item This defines the capacity of the model
+   \end{itemize}
 \end{frame}
 
+
+\begin{frame}
+   \frametitle{Decision Trees - Example}
+   \begin{center}
+      \includegraphics[height=150px]{img/true_vs_learned_regulartree.png}
+   \end{center}
+   \textit{Left:} Training data of an artificial classification problem. 
+   \textit{Right:} Learned function of a decision tree
+\end{frame}
+
+
+\begin{frame}
+   \frametitle{Decision Trees - Learning}  
+   \begin{itemize}
+   \item Fitting a tree is an optimization problem
+   \item Many exact solutions are NP hard: e.g. finding a minimal tree that fits the data
+   \item Instead of exact solutions: greedy algorithms (bottom up vs top down)
+   \item Different loss functions have been proposed: \newline
+   InformationGain, Gini Index,  Likelihood-Ratio Chi–Squared Statistics, DKM Criterion, Gain Ratio, ...
+   \item This project evaluates the Information Bottleneck as loss function 
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+   \frametitle{Decision Trees - Top Down}  
+   TODO Algorithm pseudocode
+\end{frame}
