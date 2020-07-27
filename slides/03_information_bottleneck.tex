@@ -30,15 +30,15 @@
 
 \begin{frame}
     \frametitle{The Information Bottleneck Iterative Algorithm}
-    Similar to the Blahut-Arimoto Algorithm (\cite{blahut_computation_1972} \cite{arimoto_algorithm_1972}) for finding an optimal $P_{\hat{X}|\mathbb{X}}$, there exists an iterative algorithm that converges to the optimal solution for the IB problem:
+    Iterative algorithm that converges to the optimal $P_{\hat{X}|\mathbb{X}}$ for the IB problem, similar to the Blahut-Arimoto Algorithm (\cite{blahut_computation_1972} \cite{arimoto_algorithm_1972})
 
     \begin{align*}
         p_t(\hat{x}|x) &= \frac{p_t(\hat{x})}{Z_t(x, \beta)} exp(- \beta d(x, \hat{x}) ) \\
         p_{t+1}(\hat{x}) &= \sum_{x} p_t(\hat{x}|x) P_{\mathbb{X}}(x) \\
-        p_{t+1}(y|\hat{x}) &= \frac{p_t(y, x')}{p_{t+1}(x')} = \frac{\sum_{x} P_{\mathbb{X},\mathbb{Y}}(x, y) p_t(\hat{x}|x)}{p_{t+1}(x')} 
+        p_{t+1}(y|\hat{x}) &= \frac{p_t(y, \hat{x})}{p_{t+1}(\hat{x})} = \frac{\sum_{x} P_{\mathbb{X},\mathbb{Y}}(x, y) p_t(\hat{x}|x)}{p_{t+1}(\hat{x})} 
     \end{align*} 
 
-    Where $d(x, \hat{x}) = D_{KL}(P_{\mathbb{Y}|\mathbb{X}}|| P_{\mathbb{Y}|\hat{X}})$ \footnote{
+    Where $d(x, \hat{x}) = D_{KL}(P_{\mathbb{Y}|\mathbb{X}=x}|| P_{\mathbb{Y}|\hat{X}=\hat{x}})$ \footnote{
         In equation (31) of \cite{tishby_information_2000}, the update rule is stated as $p_{t+1}(y|\hat{x}) = \sum_y P_{\mathbb{Y}|\mathbb{X}}(y|x) p_t(x|\hat{x})$, which cannot be correct since it does not depend on $y$ of the lefthand side of the equation.
     }
     

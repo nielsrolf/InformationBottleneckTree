@@ -1,14 +1,49 @@
 \section[IB in Trees]{Information Bottleneck in Decision Trees} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
+\begin{frame}
+    \frametitle{Comparison: Decision Trees and Information Bottleneck Iterative Algorithm}
+    
+    \textbf{Common}
+    \begin{itemize}
+        \item Prediction: \newline
+        Trees: $X \rightarrow leaf \rightarrow Y$ \newline
+        IB Iterative Algorithm: $X \rightarrow \hat{X} \rightarrow Y$
+        \item usage of loss function that can be expressed as expectation over $\mathbb{X}, \mathbb{Y}$ (next slide)
+    \end{itemize}
+    \textbf{Differences}
+    \begin{itemize}
+        \item IB assumes knowledge of $P_{\mathbb{X}, \mathbb{Y}}$
+        \item IB requires finite $\mathcal{X}$ or explicit quantization
+        \item DT is sensitive to the parameterization of $\mathbb{X}$
+        \item IB finds an optimal solution, DT can and will get stuck in local optima
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Information Bottleneck in Decision Trees}
+
+    $J_{IB;\beta}$ can be estimated in a decision tree:
+    \begin{align*}
+        J_{IB;\beta}(Y) &= I(\mathbb{X}, \hat{X}) - \beta I(\hat{X}, \mathbb{Y}) \\
+        &= H(\mathbb{X}) - H(\mathbb{X}|\hat{X}) - \beta (H(\mathbb{Y}) - H(\mathbb{Y} | \hat{X})) \\
+        &= const - H(\mathbb{X}|\hat{X}) + \beta H(\mathbb{Y} | \hat{X}) \\
+        &= const - E_{\mathbb{X},\hat{X}}[-log P(\mathbb{X}|\hat{X})] + \beta E_{\hat{X},\mathbb{Y}}[-log(P(\mathbb{Y}|\hat{X}))]
+        \label{eq:2}
+    \end{align*}
+    These expectations can easily (but not necessarily accurately) be estimated from samples, and greedily optimized:
+    \begin{align*}
+        J_{IB;\beta}(Y) &= \frac{|Y_{left}|}{|Y|} J_{IB;\beta}(Y_{left}) + \frac{|Y_{right}|}{|Y|} J_{IB;\beta}(Y_{right})
+    \end{align*}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Information Bottleneck in Decision Trees}
     \begin{itemize}
-        \item plug in $J_{IB;\beta}$ into decision tree inducer
-        \item time and space complexity of the algorithm not affected
-        \item IB now applicable to samples, when $P_{\mathbb{X}, \mathbb{Y}}$ unkown
-        \item Generalization bounds?
-        \item some authors also train neural networks with the IB objective, but this is a much harder task: $I(\mathbb{X}, \hat{X})$ and $I(\hat{X}, \mathbb{Y})$ are hard to estimate
+        \item Similar to InformationGain + regularizer
+        \item Time and space complexity of the algorithm not affected, but no more pruning necessary
+        \item IB in neural networks: $I(\mathbb{X}, \hat{X})$ and $I(\hat{X}, \mathbb{Y})$ are hard to estimate
         \begin{itemize}
             \item Information Dropout \cite{achille_information_2017}: add multiplicative noise to intermediate activations
             \item MINE \cite{belghazi_mine_2018}: general purpose estimator for mututal information using neural networks, which can then be used to train another network with the IB objective

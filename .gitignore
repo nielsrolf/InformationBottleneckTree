@@ -282,3 +282,4 @@ TSWLatexianTemp*
 slides/examples.tex
 *.pdf
 todo.yml
+**/*.DS_Store
