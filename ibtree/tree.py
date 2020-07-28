@@ -154,16 +154,18 @@ class DecisionTree():
             return [self]
         return self.left.get_leaves() + self.right.get_leaves()
 
-    def predict_single(self, x, max_depth=False):
+    def predict_single(self, x, max_depth):
         """Works on projected data"""
         if self.is_leaf or max_depth == 0:
             return self.mean
         if x[self.split_dim] <= self.threshhold:
-            return self.left.predict_single(x, max_depth=max_depth and max_depth-1)
+            return self.left.predict_single(x, max_depth=max_depth-1)
         else:
-            return self.right.predict_single(x, max_depth=max_depth and max_depth-1)
+            return self.right.predict_single(x, max_depth=max_depth-1)
 
-    def predict(self, X, max_depth=False):
+    def predict(self, X, max_depth=True):
         if self.random_projections:
             X = self.apply_random_projections(X)
+        if max_depth is True:
+            max_depth = self.depth
         return np.array([self.predict_single(x, max_depth=max_depth) for x in X])

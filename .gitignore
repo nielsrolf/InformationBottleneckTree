@@ -284,4 +284,4 @@ slides/examples.tex
 todo.yml
 **/*.DS_Store
 ibtree.egg-info/
-**/__pycache/
+**/__pycache__/
