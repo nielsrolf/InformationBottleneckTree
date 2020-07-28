@@ -280,7 +280,6 @@ TSWLatexianTemp*
 # End of https://www.toptal.com/developers/gitignore/api/jupyternotebook,latex
 
 slides/examples.tex
-*.pdf
 todo.yml
 **/*.DS_Store
 ibtree.egg-info/
