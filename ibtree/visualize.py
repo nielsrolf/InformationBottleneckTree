@@ -77,13 +77,10 @@ def print_node(self, prefix=""):
         self: DecisionTree
         prefix (str, optional): Indentation for the node. Defaults to "".
     """ 
-    print(f"{prefix} >> N: {self.mean}")
-    print(f"{prefix} >> N: {self._N}")
-    print(f"{prefix} >> J: {self.leaf_loss:.2f}")
-    print(f"{prefix} >> Acc: {self.mean.max():.2f}")
+    print(f"{prefix} >> M: {self.mean*self._N}")
 
 
-def print_tree(self, prefix=""):
+def print_tree(self, feature_names, prefix=""):
     """Recursively prints the decision nodes of a tree.
 
     Args:
@@ -91,14 +88,12 @@ def print_tree(self, prefix=""):
         prefix (str, optional): Indentation for the node. Defaults to "".
     """ 
     if self.is_leaf:
-        self.print_node(prefix)
+        print_node(self, prefix)
     else:
-        print(
-            f"{prefix} X_{self.split_dim} <= {self.threshhold} : {self.left._N} vs {self._N-self.left._N}")
-        self.left.print_tree(prefix+"  |")
-        if self.right is not None:
-            print(f"{prefix} X_{self.split_dim} > {self.threshhold}")
-            self.right.print_tree(prefix+"  |")
+        print(f"{prefix} {feature_names[self.split_dim]} <= {self.threshhold} : {self.left._N} vs {self._N-self.left._N}")
+        print_tree(self.left, feature_names, prefix+"  |")
+        print(f"{prefix} {feature_names[self.split_dim]} > {self.threshhold}")
+        print_tree(self.right, feature_names, prefix+"  |")
 
 
 class AnimatedScatter(object):
