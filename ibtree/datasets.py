@@ -12,7 +12,7 @@ def grid2d(N):
 
 
 def circle_y(X):
-    y = np.zeros((10000, 2))
+    y = X*0
     y[np.square(X+0.5).sum(1) > 0.2, 0] = 1
     y[:, 1] = 1 - y.sum(1)
     return y
