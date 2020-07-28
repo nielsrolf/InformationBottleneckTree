@@ -283,3 +283,4 @@ slides/examples.tex
 *.pdf
 todo.yml
 **/*.DS_Store
+ibtree.egg-info/
