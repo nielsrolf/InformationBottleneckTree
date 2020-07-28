@@ -22,16 +22,20 @@
 
 \begin{frame}
     \frametitle{Information Bottleneck in Decision Trees}
+    
 
     $J_{IB;\beta}$ can be estimated in a decision tree:
     \begin{align*}
         J_{IB;\beta}(Y) &= I(\mathbb{X}, \hat{X}) - \beta I(\hat{X}, \mathbb{Y}) \\
         &= H(\mathbb{X}) - H(\mathbb{X}|\hat{X}) - \beta (H(\mathbb{Y}) - H(\mathbb{Y} | \hat{X})) \\
         &= const - H(\mathbb{X}|\hat{X}) + \beta H(\mathbb{Y} | \hat{X}) \\
-        &= const - E_{\mathbb{X},\hat{X}}[-log P(\mathbb{X}|\hat{X})] + \beta E_{\hat{X},\mathbb{Y}}[-log(P(\mathbb{Y}|\hat{X}))]
+        &= const - E_{\mathbb{X},\hat{X}}[-log P(\mathbb{X}|\hat{X})] + \beta E_{\hat{X},\mathbb{Y}}[-log(P(\mathbb{Y}|\hat{X}))] \\
+        & \simeq const - 1/N \sum_i log |\{x' |x' \in X, leaf(x')=leaf(x_i)\}| \\
+        &+ \beta /N \sum_i D_{KL}(y_i|| T(x_i))
         \label{eq:2}
     \end{align*}
-    These expectations can easily (but not necessarily accurately) be estimated from samples, and greedily optimized:
+    where $T(x)$ is the empirical distribution of $Y$ given $leaf(x)$ in the train set. \newline
+    This can be greedily optimized:
     \begin{align*}
         J_{IB;\beta}(Y) &= \frac{|Y_{left}|}{|Y|} J_{IB;\beta}(Y_{left}) + \frac{|Y_{right}|}{|Y|} J_{IB;\beta}(Y_{right})
     \end{align*}
