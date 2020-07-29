@@ -2,5 +2,18 @@
 
 \begin{frame}
     \frametitle{Conclusion}
-
+    \begin{itemize}
+        \item Analogy drawn between Information Bottleneck and decision trees
+        \item Decision trees can be trained with IB inspired loss
+        \item On a small example of handwritten digit classification, the generalization accuracy improved compared to two baselines:
+        \begin{itemize}
+            \item Pure InformationGain
+            \item Default implementation of sklearn, which uses another loss function (gini impurity)
+        \end{itemize}
+        \item Open questions:
+        \begin{itemize}
+            \item How does an ensemble like random forest of these models perform? 
+            \item Is there a bound for the expected generalization loss?
+        \end{itemize}
+    \end{itemize}
 \end{frame}
