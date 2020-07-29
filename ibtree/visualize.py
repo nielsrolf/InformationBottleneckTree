@@ -108,7 +108,7 @@ class AnimatedScatter(object):
         self.ax.set_title(title)
         # Then setup FuncAnimation.
         self.ani = animation.FuncAnimation(self.fig, self.update, interval=int(10000/tree.depth),
-                                           frames=range(1, tree.depth), init_func=self.setup_plot, blit=True)
+                                           frames=range(1+tree.depth), init_func=self.setup_plot, blit=True)
 
     def setup_plot(self):
         """Initial drawing of the scatter plot."""
@@ -127,8 +127,8 @@ class AnimatedScatter(object):
     def generate_data(self, x, tree):
         # change: method that changes the model or the plane or whatever
         frames_y = []
-        for i in range(1, tree.depth):
-            y = tree.predict(x, max_depth=i-1)[:,0]
+        for i in range(tree.depth+1):
+            y = tree.predict(x, max_depth=i)[:,0]
             y[0] = 1-y[0]
             frames_y.append(y)
         self.Y = np.array(frames_y)
@@ -137,7 +137,7 @@ class AnimatedScatter(object):
         # Set x and y data
         self.scat.set_offsets(self.x)
         # Set colors..
-        y = self.Y[i-1]
+        y = self.Y[i]
         self.scat.set_array(y)
         self.scat.set_cmap('winter')
         self.scat.set_sizes(0*y+6)
